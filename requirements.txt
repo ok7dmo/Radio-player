@@ -1,0 +1,16 @@
+# FT-897 Packet Converter Requirements
+#
+# This project uses only Python standard library modules.
+# No external dependencies are required.
+#
+# Minimum Python version: 3.6
+#
+# Standard library modules used:
+# - struct (binary data parsing)
+# - sys (command line arguments)
+# - os (file operations)
+# - typing (type hints)
+# - dataclasses (data structures)
+
+# No packages to install!
+# Just run: python3 ft897_packet_converter.py
