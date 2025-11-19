@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=FT-897 Memory Manager
+GenericName=Radio Memory Manager
+Comment=Manage Yaesu FT-897 radio memory images
+Exec=/usr/bin/python3 %d/ft897_gui.py
+Icon=%d/icon.png
+Terminal=false
+Categories=HamRadio;Utility;
+Keywords=radio;ham;amateur;yaesu;ft897;memory;
+StartupNotify=true
