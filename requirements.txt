@@ -1,10 +1,16 @@
-# FT-897 Packet Converter Requirements
+# FT-897 Memory Manager Requirements
 #
-# This project uses only Python standard library modules.
-# No external dependencies are required.
-#
-# Minimum Python version: 3.6
-#
+# Minimum Python version: 3.7
+
+# For CLI applications (no external dependencies required)
+# - ft897_packet_converter.py
+# - ft897_analyze.py
+# - test_ft897_converter.py
+
+# For GUI application (requires PyQt6)
+# - ft897_gui.py
+PyQt6>=6.0.0
+
 # Standard library modules used:
 # - struct (binary data parsing)
 # - sys (command line arguments)
@@ -12,5 +18,10 @@
 # - typing (type hints)
 # - dataclasses (data structures)
 
-# No packages to install!
-# Just run: python3 ft897_packet_converter.py
+# Installation:
+# For CLI only (no installation needed):
+#   python3 ft897_packet_converter.py
+#
+# For GUI application:
+#   pip install PyQt6
+#   python3 ft897_gui.py
