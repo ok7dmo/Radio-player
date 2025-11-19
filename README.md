@@ -12,7 +12,27 @@ Kompletní sada nástrojů pro správu pamětí radiostanice **Yaesu FT-897** - 
 
 ### 1️⃣ GUI Aplikace (Doporučeno)
 
-**Grafické rozhraní v PyQt6** s plnou podporou všech funkcí:
+**Dvě verze grafického rozhraní:**
+
+#### 🪟 **Tkinter GUI** (DOPORUČENO pro Windows)
+
+```bash
+# ŽÁDNÁ instalace není potřeba!
+python3 ft897_gui_tkinter.py
+
+# Nebo na Windows:
+run_gui.bat
+```
+
+✅ **Výhody Tkinter:**
+- **Žádné závislosti** - součást Pythonu!
+- Funguje hned po instalaci Pythonu
+- Ideální pro Windows
+- Malé, rychlé, spolehlivé
+
+👉 **Windows uživatelé:** [README_WINDOWS.md](README_WINDOWS.md)
+
+#### 🐧 **PyQt6 GUI** (volitelné, modernější)
 
 ```bash
 # Instalace závislostí
@@ -22,7 +42,7 @@ pip install PyQt6
 python3 ft897_gui.py
 ```
 
-✨ **Funkce GUI:**
+✨ **Funkce GUI (obě verze):**
 - 📂 Načítání/ukládání image souborů
 - 📊 Tabulkový přehled všech kanálů
 - ✏️ Vizuální editor kanálů
