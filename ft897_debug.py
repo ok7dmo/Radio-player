@@ -54,17 +54,17 @@ def debug_channel(channel, show_raw=False):
 
     # Raw bytes
     if show_raw:
-        print(f"\nRaw Data (first 22 bytes):")
+        print(f"\nRaw Data (first 26 bytes):")
         print(f"  Byte 0 (mode):    0x{channel.raw_data[0]:02x} = {channel.raw_data[0]:08b}")
         print(f"  Byte 1 (duplex):  0x{channel.raw_data[1]:02x} = {channel.raw_data[1]:08b}")
         print(f"    - duplex bits (6-7):    {(channel.raw_data[1] >> 6) & 0x03}")
         print(f"    - is_duplex bit (5):    {bool(channel.raw_data[1] & 0x20)}")
         print(f"  Byte 2 (flags):   0x{channel.raw_data[2]:02x} = {channel.raw_data[2]:08b}")
-        print(f"  Bytes 14-17 (freq): {' '.join(f'{b:02x}' for b in channel.raw_data[14:18])}")
-        freq_raw = struct.unpack('<I', channel.raw_data[14:18])[0]
+        print(f"  Bytes 10-13 (freq): {' '.join(f'{b:02x}' for b in channel.raw_data[10:14])}")
+        freq_raw = struct.unpack('<I', channel.raw_data[10:14])[0]
         print(f"    → decoded: {freq_raw} × 10 = {freq_raw * 10} Hz")
-        print(f"  Bytes 18-21 (offset): {' '.join(f'{b:02x}' for b in channel.raw_data[18:22])}")
-        offset_raw = struct.unpack('<I', channel.raw_data[18:22])[0]
+        print(f"  Bytes 14-17 (offset): {' '.join(f'{b:02x}' for b in channel.raw_data[14:18])}")
+        offset_raw = struct.unpack('<I', channel.raw_data[14:18])[0]
         print(f"    → decoded: {offset_raw} × 10 = {offset_raw * 10} Hz")
 
 
