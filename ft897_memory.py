@@ -149,13 +149,13 @@ class FT897Channel:
             byte2 |= 0x10
         self.raw_data[2] = byte2
 
-        # Bytes 14-17: Frequency (little-endian, in 10Hz units)
+        # Bytes 10-13: Frequency (little-endian, in 10Hz units) - OPRAVENO!
         freq_units = self.frequency // 10
-        self.raw_data[14:18] = struct.pack('<I', freq_units)
+        self.raw_data[10:14] = struct.pack('<I', freq_units)
 
-        # Bytes 18-21: Offset (little-endian, in 10Hz units)
+        # Bytes 14-17: Offset (little-endian, in 10Hz units) - OPRAVENO!
         offset_units = self.offset // 10
-        self.raw_data[18:22] = struct.pack('<I', offset_units)
+        self.raw_data[14:18] = struct.pack('<I', offset_units)
 
     @classmethod
     def from_bytes(cls, index: int, data: bytes) -> 'FT897Channel':
@@ -185,15 +185,15 @@ class FT897Channel:
         ipo = bool(byte2 & 0x20)
         att = bool(byte2 & 0x10)
 
-        # Parse frequency (bytes 14-17)
-        freq_raw = struct.unpack('<I', raw_data[14:18])[0]
+        # Parse frequency (bytes 10-13) - OPRAVENO podle CHIRP!
+        freq_raw = struct.unpack('<I', raw_data[10:14])[0]
         frequency = freq_raw * 10
 
-        # Parse offset (bytes 18-21)
-        offset_raw = struct.unpack('<I', raw_data[18:22])[0]
+        # Parse offset (bytes 14-17) - OPRAVENO podle CHIRP!
+        offset_raw = struct.unpack('<I', raw_data[14:18])[0]
         offset = offset_raw * 10
 
-        # Try to extract name
+        # Try to extract name (bytes 18-25) - OPRAVENO podle CHIRP!
         try:
             name_bytes = raw_data[18:26]
             name = name_bytes.decode('ascii', errors='ignore').replace('\x00', ' ').replace('\xff', ' ').strip()

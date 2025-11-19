@@ -73,39 +73,35 @@ def analyze_chirp_channel(index, data):
     print(f"\n  Bytes 3-13 (step, tone modes, etc):")
     print(f"    {' '.join(f'{b:02x}' for b in data[3:14])}")
 
-    # Bytes 14-17: Frequency
-    freq_raw = struct.unpack('<I', data[14:18])[0]
+    # Bytes 10-13: Frequency (SPRÁVNĚ podle CHIRP!)
+    freq_raw = struct.unpack('<I', data[10:14])[0]
     freq_hz = freq_raw * 10
     freq_mhz = freq_hz / 1_000_000
-    print(f"\n  Bytes 14-17 (Frequency):")
-    print(f"    Raw: 0x{' '.join(f'{b:02x}' for b in data[14:18])}")
+    print(f"\n  Bytes 10-13 (Frequency):")
+    print(f"    Raw: 0x{' '.join(f'{b:02x}' for b in data[10:14])}")
     print(f"    Value: {freq_raw} × 10 = {freq_hz} Hz = {freq_mhz:.4f} MHz")
 
-    # Bytes 18-21: Offset (or Name?)
-    offset_raw = struct.unpack('<I', data[18:22])[0]
+    # Bytes 14-17: Offset (SPRÁVNĚ podle CHIRP!)
+    offset_raw = struct.unpack('<I', data[14:18])[0]
     offset_hz = offset_raw * 10
     offset_khz = offset_hz / 1000
-    print(f"\n  Bytes 18-21 (Offset OR Name start?):")
-    print(f"    Raw: 0x{' '.join(f'{b:02x}' for b in data[18:22])}")
+    print(f"\n  Bytes 14-17 (Offset):")
+    print(f"    Raw: 0x{' '.join(f'{b:02x}' for b in data[14:18])}")
     print(f"    As offset: {offset_raw} × 10 = {offset_hz} Hz = {offset_khz:.1f} kHz")
-    print(f"    As ASCII: '{data[18:22].decode('ascii', errors='ignore')}'")
 
-    # Bytes 22-25: Name continuation?
-    print(f"\n  Bytes 22-25 (Name continuation?):")
-    print(f"    Raw: 0x{' '.join(f'{b:02x}' for b in data[22:26])}")
-    print(f"    As ASCII: '{data[22:26].decode('ascii', errors='ignore')}'")
-
-    # Zkus celý název
+    # Bytes 18-25: Name (SPRÁVNĚ podle CHIRP!)
+    print(f"\n  Bytes 18-25 (Name):")
+    print(f"    Raw: 0x{' '.join(f'{b:02x}' for b in data[18:26])}")
     name_bytes = data[18:26]
     name = name_bytes.decode('ascii', errors='ignore').replace('\x00', ' ').replace('\xff', ' ').strip()
-    print(f"\n  Full name (bytes 18-25): '{name}'")
+    print(f"    As ASCII: '{name}'")
 
-    # CHIRP může ukládat offset jinam - zkontroluj bytes 12-13
-    rit_raw = struct.unpack('<H', data[12:14])[0]
-    print(f"\n  Bytes 12-13 (RIT or alternative offset?):")
-    print(f"    Raw: 0x{data[12]:02x} {data[13]:02x}")
+    # Bytes 8-9: RIT (podle CHIRP struktury)
+    rit_raw = struct.unpack('<H', data[8:10])[0]
+    print(f"\n  Bytes 8-9 (RIT):")
+    print(f"    Raw: 0x{data[8]:02x} {data[9]:02x}")
     print(f"    As uint16: {rit_raw}")
-    print(f"    As int16: {struct.unpack('<h', data[12:14])[0]}")
+    print(f"    As int16: {struct.unpack('<h', data[8:10])[0]}")
 
     # Detekce 2m repeateru
     is_2m = 144_000_000 <= freq_hz <= 146_000_000
