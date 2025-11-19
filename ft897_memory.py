@@ -240,7 +240,12 @@ class FT897Channel:
         """Check if this is a 2-meter band repeater"""
         if not (BAND_2M_START <= self.frequency <= BAND_2M_END):
             return False
-        return self.is_duplex or self.offset != 0
+
+        # Check multiple conditions:
+        # 1. is_duplex flag is set
+        # 2. duplex field is not simplex (0)
+        # 3. offset is non-zero
+        return self.is_duplex or self.duplex != DUPLEX_SIMPLEX or self.offset != 0
 
     def get_band_name(self) -> str:
         """Get amateur radio band name"""
